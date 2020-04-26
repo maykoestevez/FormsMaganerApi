@@ -104,6 +104,7 @@ namespace DynamicFormApi.Data
                 },
                 new DynamicFormControl(){
                     Id = -2,
+                    Label = "Email",
                     Key = "emailAddress",
                     Type="email",
                     Order = 2,
