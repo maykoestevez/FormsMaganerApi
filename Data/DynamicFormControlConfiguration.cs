@@ -18,7 +18,8 @@ namespace DynamicFormApi.Data
                     Required = true,
                     Order = 1,
                     Type="text",
-                    ControlType = "textbox"
+                    ControlType = "textbox",
+                    DynamicFormId=-1
                 },
                 new DynamicFormControl(){
                     Id = -2,
@@ -26,7 +27,8 @@ namespace DynamicFormApi.Data
                     Key = "emailAddress",
                     Type="email",
                     Order = 2,
-                    ControlType = "textbox"
+                    ControlType = "textbox",
+                    DynamicFormId=-1
                 },
                 {
                   new DynamicFormControl(){
@@ -34,7 +36,8 @@ namespace DynamicFormApi.Data
                     Key = "brave",
                     Label="Bravery Rating",
                     Order = 3,
-                    ControlType = "dropdown"
+                    ControlType = "dropdown",
+                    DynamicFormId=-1
                   }
                 }
             });

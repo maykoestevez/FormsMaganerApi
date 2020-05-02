@@ -20,10 +20,11 @@ namespace DynamicFormApi
             using (var serviceScope = host.Services.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<DynamicFormDbContext>();
-                // Delete datbase if exists
+                
+                // Delete database if exists
                 dbContext.Database.EnsureDeleted();
 
-                // Delete datbase without migration
+                // Create database without migration
                 dbContext.Database.EnsureCreated();
             }
 

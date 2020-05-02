@@ -10,47 +10,58 @@ namespace DynamicFormApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FormControlController : ControllerBase
+    public class DynamicFormController : ControllerBase
     {
         private readonly DynamicFormDbContext _context;
-        public FormControlController(DynamicFormDbContext context)
+        public DynamicFormController(DynamicFormDbContext context)
         {
             _context = context;
         }
 
         // GET api/formcontrols
         [HttpGet("")]
-        public ActionResult<IEnumerable<DynamicFormControl>> Get()
+        public ActionResult<IEnumerable<DynamicForm>> Get()
         {
-           
-
-            var dynamicCoontrols = _context.DynamicForm.Include(x => x.Options).ToList();
-            return dynamicCoontrols;
+            var dynamicForm = _context.DynamicForm.Include(x => x.FormControls).ThenInclude(x => x.Options).ToList();
+            return dynamicForm;
         }
 
         // GET api/formcontrol/5
         [HttpGet("{id}")]
-        public ActionResult<string> GetstringById(int id)
+        public ActionResult<DynamicForm> Get(int id)
         {
-            return null;
+            var dynamicForm = _context.DynamicForm
+                                       .Include(x => x.FormControls)
+                                       .ThenInclude(x => x.Options)
+                                       .FirstOrDefault(x => x.Id == id);
+
+            return dynamicForm;
         }
 
         // POST api/formcontrol
         [HttpPost("")]
-        public void Poststring(string value)
+        public async Task Post([FromBody] DynamicForm dynamicForm)
         {
+            _context.DynamicForm.Add(dynamicForm);
+            await _context.SaveChangesAsync();
         }
 
         // PUT api/formcontrol/5
         [HttpPut("{id}")]
-        public void Putstring(int id, string value)
+        public async Task Put([FromBody] DynamicForm dynamicForm)
         {
+            _context.DynamicForm.Update(dynamicForm);
+            await _context.SaveChangesAsync();
         }
 
         // DELETE api/formcontrol/5
         [HttpDelete("{id}")]
-        public void DeletestringById(int id)
+        public async Task Delete(int id)
         {
+            var dynamicFromToDelete = _context.DynamicForm.Find(id);
+
+            _context.DynamicForm.Remove(dynamicFromToDelete);
+            await _context.SaveChangesAsync();
         }
     }
 }

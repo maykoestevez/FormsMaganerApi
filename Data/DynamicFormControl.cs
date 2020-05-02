@@ -6,7 +6,7 @@ namespace DynamicFormApi.Data
     [Table("dynamic_form")]
     public class DynamicFormControl
     {
-        [Column("dynamic_form_id")]
+        [Column("dynamic_form_control_id")]
         public int Id { get; set; }
 
         [Column("value")]
@@ -30,6 +30,22 @@ namespace DynamicFormApi.Data
         [Column("input_type")]
         public string Type { get; set; }
 
+        [Column("dynamic_form_id")]
+        public int DynamicFormId { get; set; }
+        
         public IEnumerable<FormControlOption> Options { get; set; }
+    }
+
+    public enum ControlTypes
+    {
+        TextBox = 1,
+        DropDown = 2,
+        Options = 3
+    }
+    public enum InputTypes
+    {
+        Text = 1,
+        Date = 2,
+        Email = 3
     }
 }
